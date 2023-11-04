@@ -55,4 +55,23 @@ To start the container execute
 docker run -p 3141:3141 -it predict_web_app
 ```
 This will start the container with a Flask Application running on 3141 port (3141 port inside a docker container is mapped onto 3141 port on localhost). 
-## Deploying the model using Docker and ElasticBean on AWS
+# Deploying the model using Docker and ElasticBean on AWS
+
+# Structure of the Project
+
+    ├── README.md               <- The top-level README.
+    ├── Pipfile                 <- project libraries requirements.
+    ├── Pipfile.lock            <- file that defines dependency tree.
+    ├── Dockerfile              <- Docker file for a Falsk Application
+    ├── src
+    │   ├── falsk_model_serving_app.py  <- Flask application code.
+    │   ├── testing_script.py           <- script to send POST request to our Flask Application.
+    │   ├── train_final_model.py        <- script to train a final model.
+    │   ├── utils.py                    <- utils module.
+    ├── data
+    │   ├── preprocessed            <- Intermediate data that has been transformed.
+    │   └── raw                     <- The original, immutable data dump.
+    │
+    ├── model_artifacts             <- artifacts to define the final model and preprocessing pipeline.
+    │
+    ├── notebooks                    <- Jupyter notebooks for initial working with data

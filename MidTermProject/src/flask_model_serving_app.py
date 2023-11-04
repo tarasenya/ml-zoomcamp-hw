@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 from flask import Flask, request, jsonify
 from utils import get_preprocessor, get_lgbm_booster
@@ -14,6 +16,11 @@ def prediction_end_point():
     res = {'res': float(MODEL.predict(preprocessed_request)),
            'status': 'OK'}
     return jsonify(res)
+
+
+@app.route('/ping', methods=['GET'])
+def ping():
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 if __name__ == '__main__':
