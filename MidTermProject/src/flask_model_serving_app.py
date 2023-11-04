@@ -20,6 +20,7 @@ def prediction_end_point():
 
 @app.route('/ping', methods=['GET'])
 def ping():
+    # added to define health state when using ElasticBeanstalk
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 

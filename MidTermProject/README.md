@@ -26,7 +26,9 @@ We consider the following models:
 
 4. A variant of boosting tree models, LightGBM (which is pretty similar to XGBoost, but trees are build slightly different).
 
-Since the last model has shown the best results it will be deployed inside a Flask application.
+5. A variant of boosting tree models, XGBoost.
+
+Since the fourth model has shown the best results it will be deployed inside a Flask application.
 
 # Dependency and environment management
 We assume that <code>pipenv</code> has been installed. In order to install dependencies defined in <code>Pipfile.lock</code> execute (from a root folder of the project)
@@ -55,7 +57,20 @@ To start the container execute
 docker run -p 3141:3141 -it predict_web_app
 ```
 This will start the container with a Flask Application running on 3141 port (3141 port inside a docker container is mapped onto 3141 port on localhost). 
-# Deploying the model using Docker and ElasticBean on AWS
+# Deploying the model using Docker and Elastic Beanstalk on AWS
+The application has been deployed to Elastic Beanstalk, the corresponding screenshots are provided in <code>screenshot</code> folder.
+```bash
+# initializing deployment, choose docker deployment in the 'pop-up' menu
+eb init
+# testing it locally
+eb local run --port 3141
+# creating environment
+eb create starscore-serving-env
+# deployment of the environment
+eb deploy
+# after everything has been tested, terminate it
+eb terminate
+```
 
 # Structure of the Project
 
@@ -73,5 +88,7 @@ This will start the container with a Flask Application running on 3141 port (314
     │   └── raw                     <- The original, immutable data dump.
     │
     ├── model_artifacts             <- artifacts to define the final model and preprocessing pipeline.
+    │
+    ├── screenshot                  <- screenshots corresponding to ElasticBeanstalk deployment.
     │
     ├── notebooks                    <- Jupyter notebooks for initial working with data
