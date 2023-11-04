@@ -20,6 +20,8 @@ lightgbm = "*"
 [dev-packages]
 matplotlib = "*"
 optuna = "==3.4.0"
+awscli = "*"
+awsebcli = "*"
 
 [requires]
 python_version = "3.10"
