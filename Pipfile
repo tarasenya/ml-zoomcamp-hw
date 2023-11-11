@@ -16,6 +16,7 @@ xgboost = "*"
 usaddress = "*"
 optuna = "*"
 lightgbm = "*"
+tensorflow = "*"
 
 [dev-packages]
 matplotlib = "*"
