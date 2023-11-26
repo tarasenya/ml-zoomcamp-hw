@@ -22,8 +22,8 @@ def convert_keras_model_to_tflite_model(model_name, output_name):
         f_out.write(tflite_model)
 
     print('Converted')
-    print(f'File size {os.path.getsize(f"{output_name}.tflite") / (1024 * 1024)}')
+    print(f'File size {os.path.getsize(os.path.join(MODELS_DIRECTORY,f"{output_name}.tflite")) / (1024 * 1024)}')
 
 
 if __name__ == '__main__':
-    convert_keras_model_to_tflite_model('bees-wasps', 'bee-wasps')
+    convert_keras_model_to_tflite_model('lemon_rich_enrichments_13_0.998', 'lemon')
