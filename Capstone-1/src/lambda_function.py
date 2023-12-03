@@ -54,6 +54,6 @@ def lambda_handler(event, context):
     res = predict(url_to_image)
     print(res)
     if res > 0.5:
-        return {'result': 'Good Quality', 'probability': float(res)}
+        return {'result': 'Bad Quality', 'probability': float(res)}
     else:
-        return {'result': 'Bad Quality', 'probability': float(1 - res)}
+        return {'result': 'Good Quality', 'probability': float(1 - res)}

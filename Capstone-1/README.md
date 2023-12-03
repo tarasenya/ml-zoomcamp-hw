@@ -18,7 +18,8 @@ all under daylight) and sizes.
 
 ## Local Deployment using <code>docker compose</code>
 
-It is assumed that docker as well docker compose have been installed. The project has been cloned, we are in the folder _Capstone-1_.
+It is assumed that docker as well docker compose have been installed. The project has been cloned, we are in the folder
+_Capstone-1_.
 
 1. Build <code>tf-serving</code> container that includes the lemon model:
 
@@ -32,10 +33,98 @@ docker build -t lemon_serving:v1 -f image-model.dockerfile .
 docker build -t lemon_gateway:v1 -f image-gateway.dockerfile .
 ```
 
-3. Start <code>docker compose</code> (consider _docker-compose.yaml_): 
+3. Start <code>docker compose</code> (consider _docker-compose.yaml_):
+
 ```bash
 docker compose up
 ```
 
-
 ## Deployment using AWS Lambda
+
+Assuming that we are in the _Capstone-1_ repository.
+
+1. Build lambda function docker container:
+
+```bash
+docker build -t lemon_prediction .
+```
+
+2. Create ECR repository, log in there and push the container there.
+
+```bash
+aws ecr create-repository --repository-name lemon
+aws ecr get-login
+$(aws ecr get-login --no-include-email)
+#after creating a repository we ge the URI of the registry, it looks as the following
+PREFIX=340951083884.dkr.ecr.us-east-1.amazonaws.com/lemon
+# tag lemon_prediction
+docker tag lemon_prediction ${PREFIX}:lemon_prediction
+docker push 
+```
+
+![After logging to AWS console and going to ECR Repository we see the following](./screenshots/ECR.png)
+
+3. Create the lambda function using AWS Console (standard way):
+   ![Using the docker image](screenshots/lambda_function.png)
+4. Create API Gateway for the lambda function:
+![](screenshots/api_gateway.png)
+5. The final scheme of lambda function looks as the following:
+![Gateway is attached to lambda function](screenshots/new_scheme_lambda_w_gateway.png)
+## Deployment on k8s cluster
+
+It is assumed that _kind_ and _kubectl_ have been installed, moreover the containers _lemon_gateway:v1_, _lemon_serving:
+v1_ (defined respectively by _image-gateway.dockerfile_ and _image-model.dockerfile_)
+
+1. Create a cluster using kind
+
+```bash
+kind create cluster
+```
+
+![Kind Cluster](screenshots/kind_cluster.png)
+The cluster information is as the following
+![](screenshots/cluster_info.png)
+
+2. To deploy tf-serving go to _kube-config_ directory, load _lemon_serving:v1_ container to cluster and start
+   _tf-serving_ deployment and service:
+
+```bash
+kind load docker--iamge lemon_serving:v1
+kubectl apply -f model-deployment.yaml
+kubectl apply -f model-service.yaml
+```
+
+and verify that deployment was successfully:
+
+```bash
+kubectl get deployment
+kubectl get service
+```
+
+![](screenshots/model-deployment.png)
+
+3. To deploy gateway go to _kube-config_ directory, load _lemon_gateway:v1_ container to cluster and start _gateway_
+   deployment and service:
+
+```bash
+kubectl apply -f gateway-deployment.yaml
+kubectl apply -f gateway-service.yaml
+```
+
+and verify that deployment was successfully:
+
+```bash
+kubectl get deployment
+kubectl get service
+```
+
+![](screenshots/gateway-deployment.png)
+
+4. To test the complete deployment forward a port
+
+```bash
+kubectl port-forward service/gateway 8080:80
+```
+
+and run <code> testing_scripts/test_endpoint.py</code> with <code>gateway_url</code> (8080/predict)
+with different images (please note that some images can be ).
