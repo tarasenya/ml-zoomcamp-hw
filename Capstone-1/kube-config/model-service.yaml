@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tf-serving-clothing-model
+  name: tf-serving-lemon-model
 spec:
   selector:
-    app: tf-serving-clothing-model
+    app: tf-serving-lemon-model
   ports:
   - port: 8500
     targetPort: 8500

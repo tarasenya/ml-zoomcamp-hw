@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tf-serving-clothing-model
+  name: tf-serving-lemon-model
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tf-serving-clothing-model
+      app: tf-serving-lemon-model
   template:
     metadata:
       labels:
-        app: tf-serving-clothing-model
+        app: tf-serving-lemon-model
     spec:
       containers:
-      - name: tf-serving-clothing-model
-        image: 387546586013.dkr.ecr.eu-west-1.amazonaws.com/mlzoomcamp-images:zoomcamp-10-model-xception-v4-001
+      - name: tf-serving-lemon-model
+        image: lemon_serving:v1
         resources:
           limits:
             memory: "512Mi"
