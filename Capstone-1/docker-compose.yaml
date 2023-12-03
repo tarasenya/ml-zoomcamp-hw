@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  lemon-model:
+    image: lemon_serving:v1
+  gateway:
+    image: lemon_gateway:v1
+    environment:
+      - TF_SERVING_HOST=lemon-model:8500
+    ports:
+      - "9696:9696"
