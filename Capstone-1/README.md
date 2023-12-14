@@ -17,8 +17,39 @@ all under daylight) and sizes.
 5. Moreover, the model is deployed locally using <code>docker compose</code>, as well as on a k8s cluster (refer to the
    content of <code>kube-config</code> folder).
 
+## Preliminary
+
+1. Download kaggle dataset from an URL: https://www.kaggle.com/datasets/yusufemir/lemon-quality-dataset/data.
+2. To transform kaggle dataset structure to a structure suitable for <code>ImageDataGenerator</code>, create a folder
+   with the following structure:
+
+![](screenshots/structure.png)
+
+3. Apply script <code>src/utils/to_train_val.py</code> as the following:
+
+```bash
+python to_train_val.py --path_to_dataset "path to the top level of kaggle lemon_dataset" --path_to_output_directory "path to output directory"
+```
+
+4. Download all models from S3-Bucket by going to source directory and executing
+
+```bash
+bash download_models.sh
+```
+
 ## Activating environment. Running jupyter notebook
 
+It is assumed that <code>python 3.10.*</code> is installed (probably it should work for another versions).
+
+1. Go to the root folder and execute the following
+```bash
+pipenv install --dev
+pipenv shell
+```
+2. In order to use the kernel of this environment in a jupyter notebook execute
+```bash
+python -m ipykernel install --user --name=lemon
+```
 ## Local Deployment using <code>docker compose</code>
 
 It is assumed that docker as well docker compose have been installed. The project has been cloned, we are in the folder
