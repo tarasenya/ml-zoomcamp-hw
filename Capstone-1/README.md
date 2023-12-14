@@ -14,7 +14,10 @@ all under daylight) and sizes.
    lambda_function.py</code> and <code>Dockerfile</code>.
 4. The model is transformed into Tensor-formatted form (see lemon_saved folder) using <code>
    src/utils/convert_to_saved_model_format.py</code>
-5. Moreover, the model is deployed locally using <code>docker compose</code> and on a k8s cluster-
+5. Moreover, the model is deployed locally using <code>docker compose</code>, as well as on a k8s cluster (refer to the
+   content of <code>kube-config</code> folder).
+
+## Activating environment. Running jupyter notebook
 
 ## Local Deployment using <code>docker compose</code>
 
@@ -67,9 +70,10 @@ docker push
 3. Create the lambda function using AWS Console (standard way):
    ![Using the docker image](screenshots/lambda_function.png)
 4. Create API Gateway for the lambda function:
-![](screenshots/api_gateway.png)
+   ![](screenshots/api_gateway.png)
 5. The final scheme of lambda function looks as the following:
-![Gateway is attached to lambda function](screenshots/new_scheme_lambda_w_gateway.png)
+   ![Gateway is attached to lambda function](screenshots/new_scheme_lambda_w_gateway.png)
+
 ## Deployment on k8s cluster
 
 It is assumed that _kind_ and _kubectl_ have been installed, moreover the containers _lemon_gateway:v1_, _lemon_serving:
