@@ -7,6 +7,33 @@ It contains 300x300 p. 2.533 images (300 x 300 pixels), that are taken on a conc
 empty images of this surface.
 Naturally the dataset contains images of both bad and good quality lemons under slightly different lighting conditions (
 all under daylight) and sizes.
+The aim is to classify a lemon, whether it is of a good or a bad quality.
+
+# Structure of the project
+    ├── README.md               <- The top-level README.
+    ├── Pipfile                 <- project libraries requirements.
+    ├── Pipfile.lock            <- file that defines dependency tree.
+    ├── Dockerfile              <- Docker file for a lambda function
+    ├── image-gateway.dockerfile <- Docker file for a gateway service
+    ├── image-model.dockerfile   <- Docker file for a prediction service using tesnorflow serving.
+    ├── docker-compose.yaml      <- Docker compose for gateway and prediction service.
+    ├── download_models.sh       <- bash script to download models (large files) from s3 bucket.
+    ├── src
+    │   ├── gateway.py            <- Flask gateway application code.
+    │   ├── lambda_function.py    <- lambda function code.
+    │   ├── proto.py              <- module for dealing with proto functionaliyty.
+    │   ├── utils                 <- utils module (transforming to saved, tffile models) 
+    ├── testing_scripts
+    │   ├── testing_endpoint.py         <- script to test differnet endpoints.
+    │   
+    │
+    ├── models                           <- folder with ML models (filled by download_models.sh) and train_final_lemon_model.py.
+    ├── kube_config                      <- folder with k8s services/deployments yaml.
+    ├── gateway_dependencies             <- Pipfile for gateway service.   
+    ├── screenshots                      <- screenshots evidences for lambda function, k8s deployments etc.
+    │
+    ├── notebooks                        <-  contains Jupyter notebook for investigation of different NNs.
+
 
 1. The notebook lemon_model.ipynb is devoted to the finding a suitable TF model.
 2. After this model is transformed to tensorlite model (using <code>transform_to_tlite.py</code>)
@@ -16,8 +43,9 @@ all under daylight) and sizes.
    src/utils/convert_to_saved_model_format.py</code>
 5. Moreover, the model is deployed locally using <code>docker compose</code>, as well as on a k8s cluster (refer to the
    content of <code>kube-config</code> folder).
+6. Deployment to k8s is defined in <code>kube-config</code> folder.
 
-## Preliminary
+# Preliminaries
 
 0. Clone the current repository and go to Capstone-1 folder.
 1. Download kaggle dataset from an URL: https://www.kaggle.com/datasets/yusufemir/lemon-quality-dataset/data.
