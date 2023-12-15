@@ -19,13 +19,14 @@ all under daylight) and sizes.
 
 ## Preliminary
 
+0. Clone the current repository and go to Capstone-1 folder.
 1. Download kaggle dataset from an URL: https://www.kaggle.com/datasets/yusufemir/lemon-quality-dataset/data.
 2. To transform kaggle dataset structure to a structure suitable for <code>ImageDataGenerator</code>, create a folder
    with the following structure:
 
 ![](screenshots/structure.png)
 
-3. Apply script <code>src/utils/to_train_val.py</code> as the following:
+and apply script <code>src/utils/to_train_val.py</code> as the following:
 
 ```bash
 python to_train_val.py --path_to_dataset "path to the top level of kaggle lemon_dataset" --path_to_output_directory "path to output directory"
@@ -42,14 +43,20 @@ bash download_models.sh
 It is assumed that <code>python 3.10.*</code> is installed (probably it should work for another versions).
 
 1. Go to the root folder and execute the following
+
 ```bash
 pipenv install --dev
 pipenv shell
 ```
+
 2. In order to use the kernel of this environment in a jupyter notebook execute
+
 ```bash
 python -m ipykernel install --user --name=lemon
 ```
+
+3. Go to <code>notebooks</code> and open the <code>lemon_model.ipynb</code> with jupyter.
+
 ## Local Deployment using <code>docker compose</code>
 
 It is assumed that docker as well docker compose have been installed. The project has been cloned, we are in the folder
@@ -108,7 +115,7 @@ docker push
 ## Deployment on k8s cluster
 
 It is assumed that _kind_ and _kubectl_ have been installed, moreover the containers _lemon_gateway:v1_, _lemon_serving:
-v1_ (defined respectively by _image-gateway.dockerfile_ and _image-model.dockerfile_)
+v1_ (defined respectively by _image-gateway.dockerfile_ and _image-model.dockerfile_) have been built.
 
 1. Create a cluster using kind
 
@@ -163,3 +170,23 @@ kubectl port-forward service/gateway 8080:80
 
 and run <code> testing_scripts/test_endpoint.py</code> with <code>gateway_url</code> (8080/predict)
 with different images (please note that some images can be ).
+
+## Training
+
+To train a final model go to <code>models</code> folder and execute <code>python train_final_lemon_model.py
+--path_to_lemon_dataset PATH_TO_LEMON_DATASET</code>
+
+## Testing
+Go to <code>testing_scripts/test_endpoint.py</code>. There are 3 urls for testing:
+* url - url for a local testing of a lambda function
+* gateway_url  - url for predict endpoint on 8080 port (can be used for testing k8s deployment)
+* gateway_lambda_ur - url for gateway for a lambda function on amazon, this service will be alive the next few weeks.
+
+There are 5 test data images that are found on a Google Photos service:
+* data1 - a photo of a rose 
+* good_lemon_1 - a photo of a good lemon
+* good_lemon_2 - a photo of a good lemon
+* bad_lemon_1 - a photo of a bad lemon
+* bad_lemon_2 - a photo of a bad lemon
+
+<code>request</code> library is used to send requests.

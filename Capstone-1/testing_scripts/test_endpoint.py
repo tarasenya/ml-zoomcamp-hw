@@ -2,7 +2,9 @@ import requests
 
 url = 'http://localhost:8080/2015-03-31/functions/function/invocations'
 gateway_url = 'http://localhost:8080/predict'
-gateway_lambda_url = 'https://1m5p6nbku8.execute-api.us-east-1.amazonaws.com/Staging/predict'
+gateway_lambda_url1 = 'https://1m5p6nbku8.execute-api.us-ea'
+gateway_lambda_url2 = 'st-1.amazonaws.com/Staging/predict'
+gateway_lambda_url = gateway_lambda_url1 + gateway_lambda_url2
 
 data1 = {
     'url': 'https://lh3.googleusercontent.com/pw/ADCreHdsQlZXAa3Z2duOZgJuW348_SvMhM1a1lnrhnDqGmsUKXlppEZREecD_0lNZZuiTemFB3B3W3FMjGgexvtIEPWB2kQwumaQHVmhT1zeMqkn_aTdt0gA7H8aZRITBfnCh4ps5e-P5WHYrMzAfFaioTno=w1420-h944-s-no-gm?authuser=0'}
@@ -16,7 +18,8 @@ good_lemon_2 = {
 bad_lemon_1 = {
     'url': 'https://lh3.googleusercontent.com/pw/ADCreHdZ3IQBgjV_AzkWjv3N8MoTgMgQax47dBKVjntOdnhRe1wt_CE2asyP34EFYkwol_XNe4U6_6YU-XOvpokS5sjvZvLl2HcawhiLZp4CKzEG20H-LG8490iNPTcl9-3es51isRYhfRmOc4O1zp9afza_MH8tKpXEqRrDRZXF0QqsuVt9QQOmLNuuP3yhxXkhrxRP4Hn_bJ3Kc_FonHqfXIVs4IV5qr_hMg-27B66F8nAGrDq1rsRARtw-ybV-ENu0LXs0ZcESYoUtv8WrtyL8MBBdLU2t3QD-qD2MdI3q_kWG_u6-nDQAy0lqfeO9mZfhvXwBYMNywumfeDsmpcYOyiuFd31Fjlr5mZy0I3bK2PfIjSawQQlsB9mV3nn4qVzE9GAYeHMM8nO8BYN-egoUh4yh_3SVDkShatF3fPyyXwZbuCEjUeh82UWIJndPVnZpn3-aZYKFhdX451pVeMk71Cu9GUgbmgcdqVwzXKOcEZAC5oTNd98GPzfjaD1E_bcXU0nIpQGZYvCoPlkUzGIaLR-IY85ThDaX1CWq30To1O70WPo-Mcd8eGCmiTOIDRwp7qEed7kdAsCEVfXMdfIAeEO9DUvABhQvLlTQ9TQF8crMaos0Fe5t1k8l-VsgjWnIPs78VurdZYf_utrIhTKjODPlfOc8L5G0XRsplmltMLO9ylRkH_BZZh9LG96kmsAeGGbenJsUvwhPJO1wn3o8aq7q0QmTtJgdDGbS5b9DrHTGoYEJQaNdUabNrwBPxgpMm_Td3ovGp33SG7RayRFHed6Wv2GfJ-hHQdDDDCsTmP02eE8bP7t5okvQRfdVSxtQ0bgrq2a-TpkFN2BHeRRAmmk1hUS_luNifIHuuHeTowvwfW3g9dFkN82oRYu6Mvwy13HlzkqB2zqTUYIFrpV1JtfuGqufe_9XtdU2d5_=w300-h300-s-no-gm?authuser=0'}
 
-bad_lemon_2 = {'url': 'https://lh3.googleusercontent.com/pw/ADCreHcgd0JENQ0qY5VsODHW63-mJBYjJsTWbsRmsAfq3waQ1sPiXE1rRzBCASPyOlNu9HQhpzFuGXaR8IAAVcbYVGU34tMVoTzazMcm85SXnSrIwHUVqsK-tByNbP5GRxcPxRAZFyHkrykg9ryDrAo69C2G=w300-h300-s-no-gm?authuser=0' }
+bad_lemon_2 = {
+    'url': 'https://lh3.googleusercontent.com/pw/ADCreHcgd0JENQ0qY5VsODHW63-mJBYjJsTWbsRmsAfq3waQ1sPiXE1rRzBCASPyOlNu9HQhpzFuGXaR8IAAVcbYVGU34tMVoTzazMcm85SXnSrIwHUVqsK-tByNbP5GRxcPxRAZFyHkrykg9ryDrAo69C2G=w300-h300-s-no-gm?authuser=0'}
 
 result = requests.post(gateway_lambda_url, json=good_lemon_1).json()
 
